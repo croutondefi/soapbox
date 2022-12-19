@@ -41,7 +41,7 @@ const defaultSettings = ImmutableMap({
   missingDescriptionModal: false,
   defaultPrivacy: 'public',
   defaultContentType: 'text/plain',
-  themeMode: 'system',
+  themeMode: 'light',
   locale: navigator.language.split(/[-_]/)[0] || 'en',
   showExplanationBox: true,
   explanationBox: true,

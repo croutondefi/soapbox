@@ -181,6 +181,7 @@
     "react-sparklines": "^1.7.0",
     "react-sticky-box": "^1.0.2",
     "react-swipeable-views": "^0.14.0",
+    "react-telegram-login": "^1.1.2",
     "react-textarea-autosize": "^8.3.4",
     "react-toggle": "^4.1.2",
     "react-virtuoso": "^3.1.3",

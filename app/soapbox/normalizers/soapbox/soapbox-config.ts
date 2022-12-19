@@ -79,7 +79,7 @@ export const SoapboxConfigRecord = ImmutableRecord({
   brandColor: '', // Empty
   accentColor: '',
   colors: ImmutableMap(),
-  copyright: `♥${new Date().getFullYear()}. Copying is an act of love. Please copy and share.`,
+  copyright: `♥${new Date().getFullYear()}. github.com/croutondefi. Please share.`,
   customCss: ImmutableList<string>(),
   defaultSettings: ImmutableMap<string, any>(),
   extensions: ImmutableMap(),
@@ -116,6 +116,7 @@ export const SoapboxConfigRecord = ImmutableRecord({
   feedInjection: true,
   tileServer: '',
   tileServerAttribution: '',
+  isBeta: true,
 }, 'SoapboxConfig');
 
 type SoapboxConfigMap = ImmutableMap<string, any>;

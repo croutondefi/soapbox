@@ -79,12 +79,12 @@ const Header = () => {
               <Sonar />
             </div>
 
-            <IconButton
+            {/* <IconButton
               title={intl.formatMessage(messages.menu)}
               src={require('@tabler/icons/menu-2.svg')}
               onClick={open}
               className='md:hidden mr-4 bg-transparent text-gray-700 dark:text-gray-600 hover:text-gray-600'
-            />
+            /> */}
 
             <Link to='/' className='z-10'>
               <SiteLogo alt='Logo' className='h-6 w-auto cursor-pointer' />
@@ -108,9 +108,9 @@ const Header = () => {
               </HStack>
 
               <HStack space={2} className='xl:hidden shrink-0'>
-                <Button to='/login' theme='tertiary'>
+                {/* <Button to='/login' theme='tertiary'>
                   {intl.formatMessage(messages.login)}
-                </Button>
+                </Button> */}
 
                 {(isOpen || pepeEnabled && pepeOpen) && (
                   <Button
@@ -123,7 +123,7 @@ const Header = () => {
               </HStack>
             </HStack>
 
-            <Form className='hidden xl:flex space-x-2 rtl:space-x-reverse items-center' onSubmit={handleSubmit}>
+            {/* <Form className='hidden xl:flex space-x-2 rtl:space-x-reverse items-center' onSubmit={handleSubmit}>
               <Input
                 required
                 value={username}
@@ -165,7 +165,7 @@ const Header = () => {
               >
                 {intl.formatMessage(messages.login)}
               </Button>
-            </Form>
+            </Form> */}
           </HStack>
         </div>
       </nav>
