@@ -91,15 +91,16 @@ const LandingPage = () => {
 
   // Render registration flow depending on features
   const renderBody = () => {
-    if (soapboxConfig.authProvider) {
-      return renderProvider();
-    } else if (pepeEnabled && pepeOpen) {
-      return renderPepe();
-    } else if (features.accountCreation && instance.registrations) {
-      return renderOpen();
-    } else {
-      return renderClosed();
-    }
+    return <div />;
+    // if (soapboxConfig.authProvider) {
+    //   return renderProvider();
+    // } else if (pepeEnabled && pepeOpen) {
+    //   return renderPepe();
+    // } else if (features.accountCreation && instance.registrations) {
+    //   return renderOpen();
+    // } else {
+    //   return renderClosed();
+    // }
   };
 
   return (

@@ -1,18 +1,18 @@
+import { WalletInfo, WalletInfoRemote } from '@tonconnect/sdk';
+// import { TonConnectButton } from '@tonconnect/ui-react';
 import React, { useCallback, useState, useEffect } from 'react';
 import { defineMessages, FormattedMessage, useIntl } from 'react-intl';
 import { Link, Redirect } from 'react-router-dom';
-import { WalletInfo, WalletInfoRemote } from '@tonconnect/sdk';
 
 import { openModal } from 'soapbox/actions/modals';
 import { connector } from 'soapbox/actions/ton-connect';
-
 import SiteLogo from 'soapbox/components/site-logo';
-import { Button, Form, HStack, IconButton, Input, Tooltip } from 'soapbox/components/ui';
-import { useAppSelector, useFeatures, useSoapboxConfig, useOwnAccount, useInstance, useTonWalletConnectionError, useTonWallet } from 'soapbox/hooks';
+import { Button, HStack, IconButton } from 'soapbox/components/ui';
+import { useAppSelector, useFeatures, useSoapboxConfig, useOwnAccount, useInstance, useTonWalletConnectionError, useAppDispatch, useTonWallet } from 'soapbox/hooks';
 
 import Sonar from './sonar';
 
-import type { AxiosError } from 'axios';
+// import type { AxiosError } from 'axios';
 
 const messages = defineMessages({
   menu: { id: 'header.menu.title', defaultMessage: 'Open menu' },
@@ -41,7 +41,7 @@ const Header = () => {
 
   const [isLoading, setLoading] = React.useState(false);
   const [shouldRedirect, setShouldRedirect] = React.useState(false);
-  const [mfaToken, setMfaToken] = React.useState(false);
+  // const [mfaToken, setMfaToken] = React.useState(false);
 
   const open = () => dispatch(openModal('LANDING_PAGE'));
 
@@ -50,38 +50,17 @@ const Header = () => {
   const fetchData = async () => {
     const walletsList = await connector.getWallets();
 
-    setWalletsList(walletsList)
+    setWalletsList(walletsList);
   };
 
   useEffect(() => {
     fetchData();
   }, []);
 
-  // const handleSubmit: React.FormEventHandler = (event) => {
-  //   event.preventDefault();
-  //   setLoading(true);
-
-  //   dispatch(logIn(username, password) as any)
-  //     .then(({ access_token }: { access_token: string }) => (
-  //       dispatch(verifyCredentials(access_token) as any)
-  //       // Refetch the instance for authenticated fetch
-  //         .then(() => dispatch(fetchInstance()))
-  //         .then(() => setShouldRedirect(true))
-  //     ))
-  //     .catch((error: AxiosError) => {
-  //       setLoading(false);
-
-  //       const data: any = error.response?.data;
-  //       if (data?.error === 'mfa_required') {
-  //         setMfaToken(data.mfa_token);
-  //       }
-  //     });
-  // };
-
-  const [modalUniversalLink, setModalUniversalLink] = useState('');
+  // const [modalUniversalLink, setModalUniversalLink] = useState('');
 
   const onConnectErrorCallback = useCallback(() => {
-    setModalUniversalLink('');
+    // setModalUniversalLink('');
     // notification.error({
     //   message: 'Connection was rejected',
     //   description: 'Please approve connection to the dApp in your wallet.',
@@ -89,21 +68,21 @@ const Header = () => {
   }, []);
   useTonWalletConnectionError(onConnectErrorCallback);
 
-  const wallet = useTonWallet();
+  // const wallet = useTonWallet();
 
   const handleConnectTon = useCallback(async () => {
-    if (walletsList == undefined) {
+    if (walletsList === undefined) {
       return;
     }
     // if (walletsList.contents.embeddedWallet) {
-		// 	connector.connect({ jsBridgeKey: walletsList.contents.embeddedWallet.jsBridgeKey });
-		// 	return;
-		// }
+    // 	connector.connect({ jsBridgeKey: walletsList.contents.embeddedWallet.jsBridgeKey });
+    // 	return;
+    // }
 
-		const tonkeeperConnectionSource = {
-			universalLink: (walletsList[0] as WalletInfoRemote).universalLink,
-			bridgeUrl: (walletsList[0] as WalletInfoRemote).bridgeUrl,
-		};
+    const tonkeeperConnectionSource = {
+      universalLink: (walletsList[0] as WalletInfoRemote).universalLink,
+      bridgeUrl: (walletsList[0] as WalletInfoRemote).bridgeUrl,
+    };
 
     const universalLink = connector.connect(tonkeeperConnectionSource);
 
@@ -112,10 +91,10 @@ const Header = () => {
     //show empty modal
     //with qr
     //with propper link
-  }, [walletsList])
+  }, [walletsList]);
 
   if (account && shouldRedirect) return <Redirect to='/' />;
-  if (mfaToken) return <Redirect to={`/login?token=${encodeURIComponent(mfaToken)}`} />;
+  // if (mfaToken) return <Redirect to={`/login?token=${encodeURIComponent(mfaToken)}`} />;
 
   return (
     <header>
@@ -169,52 +148,15 @@ const Header = () => {
                 )}
               </HStack>
             </HStack>
-
-            {/* <Form className='hidden xl:flex space-x-2 rtl:space-x-reverse items-center' onSubmit={handleSubmit}>
-              <Input
-                required
-                value={username}
-                onChange={(event) => setUsername(event.target.value.trim())}
-                type='text'
-                placeholder={intl.formatMessage(messages.username)}
-                className='max-w-[200px]'
-                autoCorrect='off'
-                autoCapitalize='off'
-              />
-
-              <Input
-                required
-                value={password}
-                onChange={(event) => setPassword(event.target.value)}
-                type='password'
-                placeholder={intl.formatMessage(messages.password)}
-                className='max-w-[200px]'
-                autoComplete='off'
-                autoCorrect='off'
-                autoCapitalize='off'
-              />
-
-              <Link to='/reset-password'>
-                <Tooltip text={intl.formatMessage(messages.forgotPassword)}>
-                  <IconButton
-                    src={require('@tabler/icons/help.svg')}
-                    className='bg-transparent text-gray-700 dark:text-gray-600 hover:text-gray-800 dark:hover:text-gray-500 cursor-pointer'
-                    iconClassName='w-5 h-5'
-                    transparent
-                  />
-                </Tooltip>
-              </Link>
-
-
-            </Form> */}
+            {/* <TonConnectButton /> */}
             <Button
-                theme='primary'
-                type='submit'
-                disabled={isLoading}
-                onClick={handleConnectTon}
-              >
-                {intl.formatMessage(messages.connectTon)}
-              </Button>
+              theme='primary'
+              type='submit'
+              disabled={isLoading}
+              onClick={handleConnectTon}
+            >
+              {intl.formatMessage(messages.connectTon)}
+            </Button>
           </HStack>
         </div>
       </nav>

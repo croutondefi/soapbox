@@ -1399,6 +1399,18 @@
     minimatch "^3.1.2"
     strip-json-comments "^3.1.1"
 
+"@floating-ui/core@^1.0.5":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@floating-ui/core/-/core-1.1.0.tgz#0a1dee4bbce87ff71602625d33f711cafd8afc08"
+  integrity sha512-zbsLwtnHo84w1Kc8rScAo5GMk1GdecSlrflIbfnEBJwvTSj1SL6kkOYV+nHraMCPEy+RNZZUaZyL8JosDGCtGQ==
+
+"@floating-ui/dom@^1.0.12":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@floating-ui/dom/-/dom-1.1.0.tgz#29fea1344fdef15b6ba270a733d20b7134fee5c2"
+  integrity sha512-TSogMPVxbRe77QCj1dt8NmRiJasPvuc+eT5jnJ6YpLqgOD2zXc5UA3S1qwybN+GVCDNdKfpKy1oj8RpzLJvh6A==
+  dependencies:
+    "@floating-ui/core" "^1.0.5"
+
 "@fontsource/inter@^4.5.1":
   version "4.5.1"
   resolved "https://registry.yarnpkg.com/@fontsource/inter/-/inter-4.5.1.tgz#058d8a02354f3c78e369d452c15d33557ec1b705"
@@ -2343,6 +2355,11 @@
   dependencies:
     "@sinonjs/commons" "^1.7.0"
 
+"@solid-primitives/i18n@^1.1.2":
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/@solid-primitives/i18n/-/i18n-1.1.2.tgz#2340875aa98318ed6d9b475eb653816ab4cecefe"
+  integrity sha512-eLTqmDKorLa99cXrgS4DgTqrk0n/F4rB0YR76A6gr90by5TLE+HSZ0agiZVBIUGs2g5EFeEnLqwxKsM+F5hcJQ==
+
 "@szmarczak/http-timer@^4.0.5":
   version "4.0.6"
   resolved "https://registry.yarnpkg.com/@szmarczak/http-timer/-/http-timer-4.0.6.tgz#b4a914bb62e7c272d4e5989fe4440f812ab1d807"
@@ -2442,23 +2459,50 @@
   resolved "https://registry.yarnpkg.com/@testing-library/user-event/-/user-event-14.0.3.tgz#463667596122c13d997f70b73426947ab71de962"
   integrity sha512-zIgBG5CxfXbMsm4wBS6iQC3TBNMZk16O25i4shS9MM+eSG7PZHrsBF6LFIesUkepkZ3QKKgstB2/Nola6nvy4A==
 
-"@tonconnect/protocol@^2.0.0":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@tonconnect/protocol/-/protocol-2.0.0.tgz#56b4cd31ffe399733326daf0f62ac3521aea580b"
-  integrity sha512-rDbJiKxtRi1A0dVyftvqMs9LXkMUiAfOHOX7vnbUM7PUeZbRefCv0hT1K78DnZyZxDu+U2RpSfgaqetaNWl9Lw==
+"@tonconnect/protocol@^2.0.1":
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/@tonconnect/protocol/-/protocol-2.0.1.tgz#9f1675e95cc7a376a140cbbe95cf84b8ff4d78ea"
+  integrity sha512-jkSj6EKjIlHnJxrtxdlO7KqVJe41yrIgqamGZiqziKH6iwx0m9YyKvuIREd6CmWY2jbsev3BvBWqPp9KH6HrRw==
   dependencies:
     tweetnacl-util "^0.15.1"
 
-"@tonconnect/sdk@^2.0.1":
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/@tonconnect/sdk/-/sdk-2.0.1.tgz#67d9a0a2bfbeecf7aba4fcf57fe19c60c926a61e"
-  integrity sha512-PtzoNExEiUsDSsh1RHE6ZNoy0JADl3MY4cbjrxbRw/IX+0S3gD+CYwz+z/tPUoTYEBHJV3Fs4m1FX4IU7VEw4A==
+"@tonconnect/sdk@^2.0.4", "@tonconnect/sdk@^2.0.5":
+  version "2.0.5"
+  resolved "https://registry.yarnpkg.com/@tonconnect/sdk/-/sdk-2.0.5.tgz#479e8f7bfd70d1f444cdd42d2e7c600d1bc22dbd"
+  integrity sha512-q5U+eSJJ57EYCO626yQUCcyEixkJzmUhV4Zg/yeKObNgjIFd4iB2UNgM2eBfUty0JH5dJtKk6y4wUXdx2OQ4rw==
   dependencies:
-    "@tonconnect/protocol" "^2.0.0"
+    "@tonconnect/protocol" "^2.0.1"
     deepmerge "^4.2.2"
     eventsource "^2.0.2"
     node-fetch "^2.6.7"
     tweetnacl "^1.0.3"
+
+"@tonconnect/ui-react@^0.0.6":
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/@tonconnect/ui-react/-/ui-react-0.0.6.tgz#8ad33c201efae140f98929a190e4a7d7b4bd5b1a"
+  integrity sha512-xpVIDXMyP0qiwPt4MjHQAm7G5DpGjHQZMm6cpKqv9qOqkn3bsUd2wst37edepYNUM/GFonPThpdd8OTwdU7N7A==
+  dependencies:
+    "@tonconnect/sdk" "^2.0.4"
+    "@tonconnect/ui" "^0.0.10"
+    react "^18.0.0"
+    react-dom "^18.0.0"
+
+"@tonconnect/ui@^0.0.10":
+  version "0.0.10"
+  resolved "https://registry.yarnpkg.com/@tonconnect/ui/-/ui-0.0.10.tgz#0e5a9412c4f6867be134d8fb71125c868739f467"
+  integrity sha512-4Rpaegg7uM6g4J5b6KG+YrDuUdCnx5WGcJDddV7N03V1Eeykox0rrj9EhxNxDNiU4x/f6kXOaPwUuxAPfDaC7Q==
+  dependencies:
+    "@floating-ui/dom" "^1.0.12"
+    "@solid-primitives/i18n" "^1.1.2"
+    "@tonconnect/sdk" "^2.0.5"
+    classnames "^2.3.2"
+    deepmerge "^4.2.2"
+    is-plain-object "^5.0.0"
+    qrcode-generator "^1.4.4"
+    solid-floating-ui "^0.2.0"
+    solid-js "^1.5.1"
+    solid-styled-components "^0.28.5"
+    solid-transition-group "^0.0.12"
 
 "@tootallnate/once@2":
   version "2.0.0"
@@ -4250,6 +4294,11 @@ classnames@^2.2.5, classnames@^2.2.6:
   resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.3.1.tgz#dfcfa3891e306ec1dad105d0e88f4417b8535e8e"
   integrity sha512-OlQdbZ7gLfGarSqxesMesDa5uz7KFbID8Kpq/SxIoNGDqY8lSYs0D+hhtBXhcdB3rcbXArFr7vlHheLk1voeNA==
 
+classnames@^2.3.2:
+  version "2.3.2"
+  resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.3.2.tgz#351d813bf0137fcc6a76a16b88208d2560a0d924"
+  integrity sha512-CSbhY4cFEJRe6/GQzIk5qXZ4Jeg5pcsP7b5peFSDpffpe1cqjASH/n9UTjBwOp6XpMSTwQ8Za2K5V02ueA7Tmw==
+
 clean-css@^5.2.2:
   version "5.3.0"
   resolved "https://registry.yarnpkg.com/clean-css/-/clean-css-5.3.0.tgz#ad3d8238d5f3549e83d5f87205189494bc7cbb59"
@@ -4723,6 +4772,11 @@ csstype@^3.0.2:
   version "3.0.9"
   resolved "https://registry.yarnpkg.com/csstype/-/csstype-3.0.9.tgz#6410af31b26bd0520933d02cbc64fce9ce3fbf0b"
   integrity sha512-rpw6JPxK6Rfg1zLOYCSwle2GFOOsnjmDYDaBwEcwoOg4qlsIVCN789VkBZDJAGi4T07gI4YSutR43t9Zz4Lzuw==
+
+csstype@^3.1.0:
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/csstype/-/csstype-3.1.1.tgz#841b532c45c758ee546a11d5bd7b7b473c8c30b9"
+  integrity sha512-DJR/VvkAvSZW9bTouZue2sSxDwdTN92uHjqeKVm+0dAqdfNykRzQ95tay8aXMBAAPpUiq4Qcug2L7neoRh2Egw==
 
 damerau-levenshtein@^1.0.6:
   version "1.0.7"
@@ -9289,6 +9343,11 @@ punycode@^2.1.0, punycode@^2.1.1:
   resolved "https://registry.yarnpkg.com/punycode/-/punycode-2.1.1.tgz#b58b010ac40c22c5657616c8d2c2c02c7bf479ec"
   integrity sha512-XRsRjdf+j5ml+y/6GKHPZbrF/8p2Yga0JPtdqTIY2Xe5ohJPD9saDJJLPvp9+NSBprVvevdXZybnj2cv8OEd0A==
 
+qrcode-generator@^1.4.4:
+  version "1.4.4"
+  resolved "https://registry.yarnpkg.com/qrcode-generator/-/qrcode-generator-1.4.4.tgz#63f771224854759329a99048806a53ed278740e7"
+  integrity sha512-HM7yY8O2ilqhmULxGMpcHSF1EhJJ9yBj8gvDEuZ6M+KGJ0YY2hKpnXvRD+hZPLrDVck3ExIGhmPtSdcjC+guuw==
+
 qrcode.react@^3.0.2:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/qrcode.react/-/qrcode.react-3.0.2.tgz#7ceaea165aa7066253ef670a25bf238eaec4eb9e"
@@ -10404,6 +10463,31 @@ sockjs@^0.3.24:
     faye-websocket "^0.11.3"
     uuid "^8.3.2"
     websocket-driver "^0.7.4"
+
+solid-floating-ui@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/solid-floating-ui/-/solid-floating-ui-0.2.0.tgz#fe81f8645426da5f2142e770debc21a82b4c9221"
+  integrity sha512-c1iXyQ8AU62bzZtPVggpp+rzTAuE1PkGs2HI9jIoaJV/RfOjGiM4HTOcAVGwkg/Gm0XFqj8w4bTptAM3rqbrRA==
+
+solid-js@^1.5.1:
+  version "1.6.8"
+  resolved "https://registry.yarnpkg.com/solid-js/-/solid-js-1.6.8.tgz#c21a71f376b915061db7b5b9511e90babe1ccabf"
+  integrity sha512-+X5rf4bL3Il/LI2pn6O2d63D/KyG8Shxj3DM6violSPOhRgm5ln37Pq6uVDAvJcmsObOBeGOjXAwZvqwyZjisg==
+  dependencies:
+    csstype "^3.1.0"
+
+solid-styled-components@^0.28.5:
+  version "0.28.5"
+  resolved "https://registry.yarnpkg.com/solid-styled-components/-/solid-styled-components-0.28.5.tgz#ea6ddc6ccf34097392f9dd603dd88d2259d5226e"
+  integrity sha512-vwTcdp76wZNnESIzB6rRZ3U55NgcSAQXCiiRIiEFhxTFqT0bEh/warNT1qaRZu4OkAzrBkViOngF35ktI8sc4A==
+  dependencies:
+    csstype "^3.1.0"
+    goober "^2.1.10"
+
+solid-transition-group@^0.0.12:
+  version "0.0.12"
+  resolved "https://registry.yarnpkg.com/solid-transition-group/-/solid-transition-group-0.0.12.tgz#5b5d542aa20d4ff666ac582b6f4863c34743769b"
+  integrity sha512-Eu4MfNZSSxM67C+4EXaoDiWr4BFbDLg3j30JQJgQEIH9UDOfgNPfZlsFDhT/PxwJqhe6sn85W+dbmYJzBmjpAA==
 
 source-map-js@^1.0.2:
   version "1.0.2"
