@@ -104,6 +104,7 @@ export const SoapboxConfigRecord = ImmutableRecord({
   cryptoDonatePanel: ImmutableMap({
     limit: 1,
   }),
+  tonConnectManifest: 'https://ton-connect.github.io/demo-dapp/tonconnect-manifest.json',
   aboutPages: ImmutableMap<string, ImmutableMap<string, unknown>>(),
   authenticatedProfile: true,
   singleUserMode: false,

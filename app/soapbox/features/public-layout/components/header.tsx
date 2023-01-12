@@ -1,13 +1,14 @@
-import React from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 import { defineMessages, FormattedMessage, useIntl } from 'react-intl';
 import { Link, Redirect } from 'react-router-dom';
+import { WalletInfo, WalletInfoRemote } from '@tonconnect/sdk';
 
-import { logIn, verifyCredentials } from 'soapbox/actions/auth';
-import { fetchInstance } from 'soapbox/actions/instance';
 import { openModal } from 'soapbox/actions/modals';
+import { connector } from 'soapbox/actions/ton-connect';
+
 import SiteLogo from 'soapbox/components/site-logo';
 import { Button, Form, HStack, IconButton, Input, Tooltip } from 'soapbox/components/ui';
-import { useAppSelector, useFeatures, useSoapboxConfig, useOwnAccount, useInstance, useAppDispatch } from 'soapbox/hooks';
+import { useAppSelector, useFeatures, useSoapboxConfig, useOwnAccount, useInstance, useTonWalletConnectionError, useTonWallet } from 'soapbox/hooks';
 
 import Sonar from './sonar';
 
@@ -17,6 +18,7 @@ const messages = defineMessages({
   menu: { id: 'header.menu.title', defaultMessage: 'Open menu' },
   home: { id: 'header.home.label', defaultMessage: 'Home' },
   login: { id: 'header.login.label', defaultMessage: 'Log in' },
+  connectTon: { id: 'header.connect_ton.label', defaultMessage: 'Connect TON Wallet' },
   register: { id: 'header.register.label', defaultMessage: 'Register' },
   username: { id: 'header.login.username.placeholder', defaultMessage: 'Email or username' },
   password: { id: 'header.login.password.label', defaultMessage: 'Password' },
@@ -38,33 +40,79 @@ const Header = () => {
   const pepeOpen = useAppSelector(state => state.verification.instance.get('registrations') === true);
 
   const [isLoading, setLoading] = React.useState(false);
-  const [username, setUsername] = React.useState('');
-  const [password, setPassword] = React.useState('');
   const [shouldRedirect, setShouldRedirect] = React.useState(false);
   const [mfaToken, setMfaToken] = React.useState(false);
 
   const open = () => dispatch(openModal('LANDING_PAGE'));
 
-  const handleSubmit: React.FormEventHandler = (event) => {
-    event.preventDefault();
-    setLoading(true);
+  const [walletsList, setWalletsList] = React.useState<WalletInfo[]>();
 
-    dispatch(logIn(username, password) as any)
-      .then(({ access_token }: { access_token: string }) => (
-        dispatch(verifyCredentials(access_token) as any)
-        // Refetch the instance for authenticated fetch
-          .then(() => dispatch(fetchInstance()))
-          .then(() => setShouldRedirect(true))
-      ))
-      .catch((error: AxiosError) => {
-        setLoading(false);
+  const fetchData = async () => {
+    const walletsList = await connector.getWallets();
 
-        const data: any = error.response?.data;
-        if (data?.error === 'mfa_required') {
-          setMfaToken(data.mfa_token);
-        }
-      });
+    setWalletsList(walletsList)
   };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  // const handleSubmit: React.FormEventHandler = (event) => {
+  //   event.preventDefault();
+  //   setLoading(true);
+
+  //   dispatch(logIn(username, password) as any)
+  //     .then(({ access_token }: { access_token: string }) => (
+  //       dispatch(verifyCredentials(access_token) as any)
+  //       // Refetch the instance for authenticated fetch
+  //         .then(() => dispatch(fetchInstance()))
+  //         .then(() => setShouldRedirect(true))
+  //     ))
+  //     .catch((error: AxiosError) => {
+  //       setLoading(false);
+
+  //       const data: any = error.response?.data;
+  //       if (data?.error === 'mfa_required') {
+  //         setMfaToken(data.mfa_token);
+  //       }
+  //     });
+  // };
+
+  const [modalUniversalLink, setModalUniversalLink] = useState('');
+
+  const onConnectErrorCallback = useCallback(() => {
+    setModalUniversalLink('');
+    // notification.error({
+    //   message: 'Connection was rejected',
+    //   description: 'Please approve connection to the dApp in your wallet.',
+    // });
+  }, []);
+  useTonWalletConnectionError(onConnectErrorCallback);
+
+  const wallet = useTonWallet();
+
+  const handleConnectTon = useCallback(async () => {
+    if (walletsList == undefined) {
+      return;
+    }
+    // if (walletsList.contents.embeddedWallet) {
+		// 	connector.connect({ jsBridgeKey: walletsList.contents.embeddedWallet.jsBridgeKey });
+		// 	return;
+		// }
+
+		const tonkeeperConnectionSource = {
+			universalLink: (walletsList[0] as WalletInfoRemote).universalLink,
+			bridgeUrl: (walletsList[0] as WalletInfoRemote).bridgeUrl,
+		};
+
+    const universalLink = connector.connect(tonkeeperConnectionSource);
+
+    dispatch(openModal('TON_CONNECT', { universalLink }));
+
+    //show empty modal
+    //with qr
+    //with propper link
+  }, [walletsList])
 
   if (account && shouldRedirect) return <Redirect to='/' />;
   if (mfaToken) return <Redirect to={`/login?token=${encodeURIComponent(mfaToken)}`} />;
@@ -122,7 +170,7 @@ const Header = () => {
               </HStack>
             </HStack>
 
-            <Form className='hidden xl:flex space-x-2 rtl:space-x-reverse items-center' onSubmit={handleSubmit}>
+            {/* <Form className='hidden xl:flex space-x-2 rtl:space-x-reverse items-center' onSubmit={handleSubmit}>
               <Input
                 required
                 value={username}
@@ -157,14 +205,16 @@ const Header = () => {
                 </Tooltip>
               </Link>
 
-              <Button
+
+            </Form> */}
+            <Button
                 theme='primary'
                 type='submit'
                 disabled={isLoading}
+                onClick={handleConnectTon}
               >
-                {intl.formatMessage(messages.login)}
+                {intl.formatMessage(messages.connectTon)}
               </Button>
-            </Form>
           </HStack>
         </div>
       </nav>

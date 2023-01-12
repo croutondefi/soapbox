@@ -98,6 +98,10 @@ export function MuteModal() {
   return import(/* webpackChunkName: "modals/mute_modal" */'../components/modals/mute-modal');
 }
 
+export function TonConnectModal() {
+  return import(/* webpackChunkName: "modals/mute_modal" */'../components/modals/ton-connect-modal');
+}
+
 export function Filters() {
   return import(/* webpackChunkName: "features/filters" */'../../filters');
 }
