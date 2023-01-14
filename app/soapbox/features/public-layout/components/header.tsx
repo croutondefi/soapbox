@@ -1,5 +1,5 @@
-import { WalletInfo, WalletInfoRemote } from '@tonconnect/sdk';
-// import { TonConnectButton } from '@tonconnect/ui-react';
+// import { WalletInfo, WalletInfoRemote } from '@tonconnect/sdk';
+import { TonConnectButton, useTonWallet } from '@tonconnect/ui-react';
 import React, { useCallback, useState, useEffect } from 'react';
 import { defineMessages, FormattedMessage, useIntl } from 'react-intl';
 import { Link, Redirect } from 'react-router-dom';
@@ -8,7 +8,7 @@ import { openModal } from 'soapbox/actions/modals';
 import { connector } from 'soapbox/actions/ton-connect';
 import SiteLogo from 'soapbox/components/site-logo';
 import { Button, HStack, IconButton } from 'soapbox/components/ui';
-import { useAppSelector, useFeatures, useSoapboxConfig, useOwnAccount, useInstance, useTonWalletConnectionError, useAppDispatch, useTonWallet } from 'soapbox/hooks';
+import { useAppSelector, useFeatures, useSoapboxConfig, useOwnAccount, useInstance, useTonWalletConnectionError, useAppDispatch } from 'soapbox/hooks';
 
 import Sonar from './sonar';
 
@@ -38,26 +38,29 @@ const Header = () => {
   const instance = useInstance();
   const isOpen = features.accountCreation && instance.registrations;
   const pepeOpen = useAppSelector(state => state.verification.instance.get('registrations') === true);
+  const wallet = useTonWallet();
 
-  const [isLoading, setLoading] = React.useState(false);
+  // const [isLoading, setLoading] = React.useState(false);
   const [shouldRedirect, setShouldRedirect] = React.useState(false);
   // const [mfaToken, setMfaToken] = React.useState(false);
 
   const open = () => dispatch(openModal('LANDING_PAGE'));
 
-  const [walletsList, setWalletsList] = React.useState<WalletInfo[]>();
+  // const [walletsList, setWalletsList] = React.useState<WalletInfo[]>();
 
-  const fetchData = async () => {
-    const walletsList = await connector.getWallets();
+  // const fetchData = async () => {
+  //   const walletsList = await connector.getWallets();
 
-    setWalletsList(walletsList);
-  };
+  //   setWalletsList(walletsList);
+  // };
 
-  useEffect(() => {
-    fetchData();
-  }, []);
+  // useEffect(() => {
+  //   fetchData();
+  // }, []);
 
   // const [modalUniversalLink, setModalUniversalLink] = useState('');
+
+  console.log(wallet);
 
   const onConnectErrorCallback = useCallback(() => {
     // setModalUniversalLink('');
@@ -70,28 +73,28 @@ const Header = () => {
 
   // const wallet = useTonWallet();
 
-  const handleConnectTon = useCallback(async () => {
-    if (walletsList === undefined) {
-      return;
-    }
-    // if (walletsList.contents.embeddedWallet) {
-    // 	connector.connect({ jsBridgeKey: walletsList.contents.embeddedWallet.jsBridgeKey });
-    // 	return;
-    // }
+  // const handleConnectTon = useCallback(async () => {
+  //   if (walletsList === undefined) {
+  //     return;
+  //   }
+  //   // if (walletsList.contents.embeddedWallet) {
+  //   // 	connector.connect({ jsBridgeKey: walletsList.contents.embeddedWallet.jsBridgeKey });
+  //   // 	return;
+  //   // }
 
-    const tonkeeperConnectionSource = {
-      universalLink: (walletsList[0] as WalletInfoRemote).universalLink,
-      bridgeUrl: (walletsList[0] as WalletInfoRemote).bridgeUrl,
-    };
+  //   const tonkeeperConnectionSource = {
+  //     universalLink: (walletsList[0] as WalletInfoRemote).universalLink,
+  //     bridgeUrl: (walletsList[0] as WalletInfoRemote).bridgeUrl,
+  //   };
 
-    const universalLink = connector.connect(tonkeeperConnectionSource);
+  //   const universalLink = connector.connect(tonkeeperConnectionSource);
 
-    dispatch(openModal('TON_CONNECT', { universalLink }));
+  //   dispatch(openModal('TON_CONNECT', { universalLink }));
 
-    //show empty modal
-    //with qr
-    //with propper link
-  }, [walletsList]);
+  //   //show empty modal
+  //   //with qr
+  //   //with propper link
+  // }, [walletsList]);
 
   if (account && shouldRedirect) return <Redirect to='/' />;
   // if (mfaToken) return <Redirect to={`/login?token=${encodeURIComponent(mfaToken)}`} />;
@@ -148,15 +151,8 @@ const Header = () => {
                 )}
               </HStack>
             </HStack>
-            {/* <TonConnectButton /> */}
-            <Button
-              theme='primary'
-              type='submit'
-              disabled={isLoading}
-              onClick={handleConnectTon}
-            >
-              {intl.formatMessage(messages.connectTon)}
-            </Button>
+            {/* <p>{{  }}</p> */}
+            <TonConnectButton />
           </HStack>
         </div>
       </nav>

@@ -1,6 +1,6 @@
 'use strict';
-
 import { QueryClientProvider } from '@tanstack/react-query';
+import { TonConnectUIProvider } from '@tonconnect/ui-react';
 import classNames from 'clsx';
 import React, { useState, useEffect } from 'react';
 import { Toaster } from 'react-hot-toast';
@@ -291,18 +291,22 @@ const SoapboxHead: React.FC<ISoapboxHead> = ({ children }) => {
 
 /** The root React node of the application. */
 const Soapbox: React.FC = () => {
+  // manifestUrl='https://raw.githubusercontent.com/croutondefi/soapbox/tonconnect-auth/tonconnect-manifest.json'
   return (
-    <Provider store={store}>
-      <QueryClientProvider client={queryClient}>
-        <StatProvider>
-          <SoapboxHead>
-            <SoapboxLoad>
-              <SoapboxMount />
-            </SoapboxLoad>
-          </SoapboxHead>
-        </StatProvider>
-      </QueryClientProvider>
-    </Provider>
+    <TonConnectUIProvider connector={}>
+      <Provider store={store}>
+        <QueryClientProvider client={queryClient}>
+          <StatProvider>
+            <SoapboxHead>
+              <SoapboxLoad>
+                <SoapboxMount />
+              </SoapboxLoad>
+            </SoapboxHead>
+          </StatProvider>
+        </QueryClientProvider>
+      </Provider>
+    </TonConnectUIProvider>
+
   );
 };
 

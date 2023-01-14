@@ -126,8 +126,8 @@ const Item: React.FC<IItem> = ({
   let left: Dimensions['l'] = 'auto';
   let bottom: Dimensions['b'] = 'auto';
   let right: Dimensions['r'] = 'auto';
-  let float: Dimensions['float'] = 'left';
-  let position: Dimensions['pos'] = 'relative';
+  // let float: Dimensions['float'] = 'left';
+  // let position: Dimensions['pos'] = 'relative';
 
   if (dimensions) {
     width = dimensions.w;
@@ -136,8 +136,8 @@ const Item: React.FC<IItem> = ({
     right = dimensions.r || 'auto';
     bottom = dimensions.b || 'auto';
     left = dimensions.l || 'auto';
-    float = dimensions.float || 'left';
-    position = dimensions.pos || 'relative';
+    // float = dimensions.float || 'left';
+    // position = dimensions.pos || 'relative';
   }
 
   let thumbnail: React.ReactNode = '';
@@ -152,7 +152,7 @@ const Item: React.FC<IItem> = ({
     );
 
     return (
-      <div className={classNames('media-gallery__item', { standalone })} key={attachment.id} style={{ position, float, left, top, right, bottom, height, width: `${width}%` }}>
+      <div className={classNames('media-gallery__item', { standalone })} key={attachment.id} style={{ /*position, float,*/ left, top, right, bottom, height, width: `${width}%` }}>
         <a className='media-gallery__item-thumbnail' href={attachment.url} target='_blank' style={{ cursor: 'pointer' }}>
           <Blurhash hash={attachment.blurhash} className='media-gallery__preview' />
           <span className='media-gallery__item__icons'>{attachmentIcon}</span>
@@ -245,7 +245,7 @@ const Item: React.FC<IItem> = ({
   }
 
   return (
-    <div className={classNames('media-gallery__item', `media-gallery__item--${attachment.type}`, { standalone })} key={attachment.id} style={{ position, float, left, top, right, bottom, height, width: `${width}%` }}>
+    <div className={classNames('media-gallery__item', `media-gallery__item--${attachment.type}`, { standalone })} key={attachment.id} style={{ /*position, float,*/ left, top, right, bottom, height, width: `${width}%` }}>
       {last && total > ATTACHMENT_LIMIT && (
         <div className='media-gallery__item-overflow'>
           +{total - ATTACHMENT_LIMIT + 1}
